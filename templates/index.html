@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Compra de Bitcoin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav>
+        <a href="{{ url_for('index') }}">Comprar Bitcoin</a>
+        <a href="{{ url_for('minar') }}">Minar Bitcoin</a>
+        <a href="{{ url_for('vender') }}">Vender Bitcoin</a>
+    </nav>
+
+    <!-- Información de la cuenta -->
+    <div class="info-cuenta">
+        <h2>Información de la cuenta</h2>
+        <p><strong>Dinero disponible:</strong> ${{ dinero }}</p>
+        <p><strong>Bitcoins poseídos:</strong> {{ bitcoins }} BTC</p>
+        <p><strong>Precio actual de Bitcoin:</strong> ${{ precio_bitcoin }} por BTC</p>
+
+        <!-- Formulario de compra -->
+        <form method="POST">
+            <label for="cantidad">Cantidad a gastar:</label>
+            <input type="number" id="cantidad" name="cantidad" step="0.01" min="0.01" required>
+            <button type="submit">Comprar</button>
+        </form>
+
+        <!-- Mensaje de éxito o error debajo del formulario -->
+        {% if mensaje %}
+            <div class="mensaje {{ 'exito' if '¡Compra realizada con éxito!' in mensaje else 'error' }}">
+                {{ mensaje }}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Gráfico de Bitcoin -->
+    <div class="grafico-container">
+        <h2>Gráfico de Precio de Bitcoin</h2>
+        <div id="grafico"></div>
+
+        <!-- Datos para el gráfico como elementos JSON -->
+        <script id="tiempos" type="application/json">{{ tiempos | tojson }}</script>
+        <script id="precios_simulados" type="application/json">{{ precios_simulados | tojson }}</script>
+
+        <!-- Importar archivo JavaScript -->
+        <script src="{{ url_for('static', filename='js/grafico.js') }}"></script>
+    </div>
+</body>
+</html>

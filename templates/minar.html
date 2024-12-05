@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Minado de Bitcoin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav>
+        <a href="{{ url_for('index') }}">Comprar Bitcoin</a>
+        <a href="{{ url_for('minar') }}">Minar Bitcoin</a>
+        <a href="{{ url_for('vender') }}">Vender Bitcoin</a>
+    </nav>
+
+    <!-- Información de la cuenta -->
+    <div class="info-cuenta">
+        <h2>Minado de Bitcoin</h2>
+        <p><strong>Bitcoin minado:</strong> {{ cantidad_bitcoins_minados }} BTC</p>
+        
+        <!-- Cuadro con las transacciones simuladas -->
+        <div class="bloque-transacciones">
+            <h3>Bloque de Transacciones</h3>
+            <ul>
+                {% for transaccion in transacciones %}
+                    <li>{{ transaccion }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Mostrar el hash del bloque -->
+        <div class="hash-calculado">
+            <h4>Hash del Bloque</h4>
+            <p>{{ hash_calculado }}</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+/* Estilo global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Barra de navegación */
+nav {
+    background-color: #2d3e50; /* Color oscuro para el fondo */
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: #fff; /* Color blanco para el texto */
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s ease;
+}
+
+nav a:hover {
+    background-color: #3498db; /* Color de fondo al pasar el mouse */
+    transform: scale(1.1); /* Efecto de aumento al hacer hover */
+}
+
+/* Información de la cuenta */
+.info-cuenta {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-cuenta h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #333;
+}
+
+.info-cuenta p {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+/* Estilo para el formulario */
+form {
+    margin-top: 20px;
+}
+
+form label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+form input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 300px;
+}
+
+form button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #2980b9;
+}
+
+/* Estilo para los mensajes */
+.mensaje {
+    margin-top: 15px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.mensaje.exito {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.mensaje.error {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Gráfico */
+.grafico-container {
+    max-width: 900px;
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+/* Estilo para los mensajes */
+.mensaje {
+    margin-top: 20px; /* Espacio superior para separar del formulario */
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.mensaje.exito {
+    background-color: #2ecc71; /* Verde para éxito */
+    color: white;
+}
+
+.mensaje.error {
+    background-color: #e74c3c; /* Rojo para error */
+    color: white;
+}
+
