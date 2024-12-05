@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador de Minado de Bitcoin</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_minar.css') }}">
 </head>
 <body>
     <!-- Barra de navegación -->
@@ -16,23 +16,33 @@
 
     <!-- Información de la cuenta -->
     <div class="info-cuenta">
-        <h2>Minado de Bitcoin</h2>
-        <p><strong>Bitcoin minado:</strong> {{ cantidad_bitcoins_minados }} BTC</p>
-        
-        <!-- Cuadro con las transacciones simuladas -->
-        <div class="bloque-transacciones">
-            <h3>Bloque de Transacciones</h3>
-            <ul>
-                {% for transaccion in transacciones %}
-                    <li>{{ transaccion }}</li>
-                {% endfor %}
-            </ul>
+        <h2>Información de la cuenta</h2>
+        <p><strong>Dinero disponible:</strong> ${{ dinero }}</p>
+        <p><strong>Bitcoins poseídos:</strong> {{ bitcoins }} BTC</p>
+        <form method="POST">
+            <button type="submit" name="iniciar_minado" class="btn btn-primary">Iniciar Minado</button>
+        </form>
+    </div>
+
+    <!-- Simulación de minado y transacciones -->
+    <div class="minado">
+        <h2>Transacciones en el Bloque</h2>
+        <div class="cuadro-transacciones">
+            <h3>Transacciones:</h3>
+            {% for tx in transacciones %}
+            <div class="transaccion">
+                <p><strong>Comprador:</strong> {{ tx.comprador }}</p>
+                <p><strong>Vendedor:</strong> {{ tx.vendedor }}</p>
+                <p><strong>Cantidad:</strong> {{ tx.cantidad }} BTC</p>
+                <p><strong>Precio:</strong> ${{ tx.precio }} USD</p>
+                <p><strong>Hash de la transacción:</strong> {{ tx.hash }}</p>
+            </div>
+            {% endfor %}
         </div>
 
-        <!-- Mostrar el hash del bloque -->
-        <div class="hash-calculado">
-            <h4>Hash del Bloque</h4>
-            <p>{{ hash_calculado }}</p>
+        <h3>Hash del Bloque:</h3>
+        <div class="hash-bloque">
+            <p>{{ hash_bloque }}</p>
         </div>
     </div>
 </body>

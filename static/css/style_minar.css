@@ -1,0 +1,139 @@
+/* Estilo global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Barra de navegación */
+nav {
+    background-color: #2d3e50; /* Color oscuro para el fondo */
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: #fff; /* Color blanco para el texto */
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s ease;
+}
+
+nav a:hover {
+    background-color: #3498db; /* Color de fondo al pasar el mouse */
+    transform: scale(1.1); /* Efecto de aumento al hacer hover */
+}
+
+/* Información de la cuenta */
+.info-cuenta {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-cuenta h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #333;
+}
+
+.info-cuenta p {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+/* Contenedor de minado */
+.minado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Apila elementos verticalmente */
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Recuadro de transacciones */
+.cuadro-transacciones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fafafa;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 900px;
+}
+
+/* Título dentro del recuadro */
+.cuadro-transacciones h3 {
+    font-size: 1.5em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Transacciones */
+.transaccion {
+    margin-bottom: 15px;
+    text-align: left; /* Alineación del texto a la izquierda */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    padding-left: 10px; /* Asegura que no haya espacio adicional al principio */
+}
+
+.transaccion p {
+    margin: 5px 0;
+    font-size: 1.1em;
+    word-wrap: break-word;
+    max-width: 100%; /* Asegura que el texto ocupe el espacio disponible */
+    text-align: left; /* Alineación del texto dentro de cada párrafo */
+}
+
+/* Estilo para el hash del bloque */
+.hash-bloque {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 1.2em;
+    color: #555;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px; /* Añade más espacio por encima del hash */
+}
+
+hr {
+    border: 1px solid #ddd;
+}
+
+/* Asegura que el texto de cada párrafo del hash y las transacciones se mantenga dentro del área de su contenedor */
+.transaccion p, .hash-bloque p {
+    word-wrap: break-word;  /* Asegura que el texto largo se ajuste dentro del recuadro */
+}

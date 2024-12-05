@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 import random
+import hashlib
 
 app = Flask(__name__)
 app.secret_key = 'mi_clave_secreta'  # Necesario para usar sesiones
@@ -91,9 +92,43 @@ def index():
         mensaje=mensaje  # Pasar el mensaje al template
     )
 
-@app.route('/minar')
+@app.route('/minar', methods=['GET', 'POST'])
 def minar():
-    return render_template('minar.html', mensaje="Esta es la página para minar bitcoins.")
+    # Obtener dinero y bitcoins desde la sesión
+    dinero = session.get('dinero', 100.0)  # Valor predeterminado en caso de que no exista
+    bitcoins = session.get('bitcoins', 0.0)  # Valor predeterminado en caso de que no exista
+
+    # Simulamos el bloque con 2 transacciones más profesionales
+    transacciones = [
+        {
+            "comprador": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",  # Wallet del comprador
+            "vendedor": "1EzWVfHKZnqYmQjd2AfCvVG83s7G5Q6hsA",  # Wallet del vendedor
+            "cantidad": 0.005,  # Cantidad de Bitcoin
+            "precio": 45000,  # Precio del Bitcoin en USD
+            "hash": hashlib.sha256("Compra de 0.005 BTC a $45000".encode()).hexdigest()
+        },
+        {
+            "comprador": "1LuvQ4cDyoq64MvfDT98ZX9jwFFdRTedA3",  # Wallet del comprador
+            "vendedor": "1Zxg1cd7TbVfe2uCkswhLNwHRRfhhA7d58",  # Wallet del vendedor
+            "cantidad": 0.010,  # Cantidad de Bitcoin
+            "precio": 46000,  # Precio del Bitcoin en USD
+            "hash": hashlib.sha256("Compra de 0.010 BTC a $46000".encode()).hexdigest()
+        }
+    ]
+
+    # Simulamos el bloque como la concatenación de las transacciones
+    bloque_data = ''.join([f"{tx['comprador']} {tx['vendedor']} {tx['cantidad']} BTC {tx['precio']} USD" for tx in transacciones])
+    hash_bloque = hashlib.sha256(bloque_data.encode()).hexdigest()  # Hash del bloque
+
+    # Pasar los datos de la cuenta (dinero y bitcoins) a la plantilla junto con el resto
+    return render_template(
+        'minar.html',
+        transacciones=transacciones,
+        hash_bloque=hash_bloque,
+        dinero=dinero,
+        bitcoins=bitcoins
+    )
+
 
 @app.route('/vender')
 def vender():
