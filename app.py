@@ -126,6 +126,7 @@ def minar():
     bloque_data = ''.join([f"{tx['comprador']} {tx['vendedor']} {tx['cantidad']} BTC {tx['precio']} USD" for tx in transacciones])
     hash_bloque = hashlib.sha256(bloque_data.encode()).hexdigest()  # Hash del bloque
     intentos = 0
+    recompensa = 6.25  # Recompensa estándar de Bitcoin por minar un bloque (puedes modificarla)
 
     # Solo ejecutar el minado si el usuario pulsa el botón
     if request.method == 'POST' and 'iniciar_minado' in request.form:
@@ -144,9 +145,14 @@ def minar():
 
         fin = time.time()  # Terminar medición del tiempo
         tiempo_minado = round(fin - inicio, 2)  # Tiempo en segundos
+        
+        
+        # Actualizar el balance de bitcoins
+        bitcoins += recompensa  # Sumar la recompensa al balance actual
+        session['bitcoins'] = bitcoins  # Guardar el balance actualizado en la sesión
 
         # Mensaje para el frontend
-        session['mensaje_minado'] = f"¡Bloque minado con éxito en {intentos} intentos y {tiempo_minado} segundos!"
+        session['mensaje_minado'] = f"¡Bloque minado con éxito en {intentos} intentos y {tiempo_minado} segundos! Has ganado {recompensa} BTC."
 
     # Obtener el mensaje de la sesión (si lo hay)
     mensaje_minado = session.pop('mensaje_minado', None)
@@ -164,9 +170,9 @@ def minar():
     )
 
 
-@app.route('/vender')
-def vender():
-    return render_template('vender.html', mensaje="Esta es la página para vender bitcoins.")
+@app.route('/enviar')
+def enviar():
+    return render_template('enviar.html', mensaje="Esta es la página para enviar bitcoins.")
 
 if __name__ == "__main__":
     app.run(debug=True)
