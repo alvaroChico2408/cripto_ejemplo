@@ -37,7 +37,7 @@ nav a:hover {
 
 /* Información de la cuenta */
 .info-cuenta {
-    max-width: 800px;
+    max-width: 900px;
     margin: 20px auto;
     background-color: #fff;
     padding: 20px;
@@ -137,3 +137,68 @@ hr {
 .transaccion p, .hash-bloque p {
     word-wrap: break-word;  /* Asegura que el texto largo se ajuste dentro del recuadro */
 }
+
+/* Recuadro genérico */
+.minado, .cuadro-transacciones, .hash-bloque, .dificultad-bloque {
+    max-width: 900px; /* Más estrecho que el diseño original */
+    margin: 20px auto; /* Centrado horizontalmente */
+    padding: 15px; /* Espaciado interno */
+    background-color: #fff; /* Fondo blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+}
+
+/* Transacciones */
+.transaccion {
+    margin-bottom: 10px; /* Espaciado entre transacciones */
+    text-align: left; /* Alineación del texto */
+    width: 100%;
+    font-size: 1em; /* Tamaño de fuente moderado */
+}
+
+/* Estilo para el hash y la dificultad */
+.hash-bloque, .dificultad-bloque {
+    font-family: monospace; /* Fuente para mostrar hash */
+    font-size: 1.1em; /* Tamaño de fuente ajustado */
+    color: #555; /* Color más suave */
+    word-wrap: break-word; /* Ajustar texto largo */
+    text-align: center; /* Centrar contenido */
+}
+
+/* Estilo para botones del formulario */
+form button {
+    background-color: #3498db; /* Color de fondo */
+    color: #fff; /* Texto blanco */
+    border: none;
+    padding: 12px 20px; /* Tamaño consistente */
+    font-size: 16px; /* Tamaño del texto */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease; /* Animaciones suaves */
+}
+
+form button:hover {
+    background-color: #2980b9; /* Color más oscuro al pasar el mouse */
+    transform: scale(1.05); /* Efecto de ampliación */
+}
+
+
+/* Estilo para los mensajes */
+.mensaje {
+    margin-top: 15px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.mensaje.exito {
+    background-color: #2ecc71; /* Verde para éxito */
+    color: white;
+}
+
+.mensaje.error {
+    background-color: #e74c3c; /* Rojo para errores */
+    color: white;
+}
+

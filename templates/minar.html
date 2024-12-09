@@ -22,6 +22,12 @@
         <form method="POST">
             <button type="submit" name="iniciar_minado" class="btn btn-primary">Iniciar Minado</button>
         </form>
+         <!-- Mostrar el mensaje de éxito después de minar -->
+        {% if mensaje_minado %}
+        <div class="mensaje exito">
+            {{ mensaje_minado }}
+        </div>
+        {% endif %}
     </div>
 
     <!-- Simulación de minado y transacciones -->
@@ -39,11 +45,18 @@
             </div>
             {% endfor %}
         </div>
-
+    </div>
+    <div class="minado">
         <h3>Hash del Bloque:</h3>
-        <div class="hash-bloque">
-            <p>{{ hash_bloque }}</p>
-        </div>
+    <div class="hash-bloque">
+        <p>{{ hash_bloque }}</p>
+    </div>
+    </div>
+    <div class="minado">
+        <h3>Dificultad del Bloque:</h3>
+    <div class="dificultad-bloque">
+        <p>{{ dificultad }}</p>
+    </div>
     </div>
 </body>
 </html>

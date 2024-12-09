@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 import random
 import hashlib
+import time  # Para medir el tiempo de minado
 
 app = Flask(__name__)
 app.secret_key = 'mi_clave_secreta'  # Necesario para usar sesiones
@@ -91,40 +92,73 @@ def index():
         tiempos=tiempos,
         mensaje=mensaje  # Pasar el mensaje al template
     )
+import time  # Para medir el tiempo de minado
 
 @app.route('/minar', methods=['GET', 'POST'])
 def minar():
     # Obtener dinero y bitcoins desde la sesión
-    dinero = session.get('dinero', 100.0)  # Valor predeterminado en caso de que no exista
-    bitcoins = session.get('bitcoins', 0.0)  # Valor predeterminado en caso de que no exista
+    dinero = session.get('dinero', 100.0)  # Valor predeterminado
+    bitcoins = session.get('bitcoins', 0.0)  # Valor predeterminado
 
-    # Simulamos el bloque con 2 transacciones más profesionales
+    # Simulamos el bloque con 2 transacciones
     transacciones = [
         {
-            "comprador": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",  # Wallet del comprador
-            "vendedor": "1EzWVfHKZnqYmQjd2AfCvVG83s7G5Q6hsA",  # Wallet del vendedor
-            "cantidad": 0.005,  # Cantidad de Bitcoin
-            "precio": 45000,  # Precio del Bitcoin en USD
+            "comprador": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+            "vendedor": "1EzWVfHKZnqYmQjd2AfCvVG83s7G5Q6hsA",
+            "cantidad": 0.005,
+            "precio": 45000,
             "hash": hashlib.sha256("Compra de 0.005 BTC a $45000".encode()).hexdigest()
         },
         {
-            "comprador": "1LuvQ4cDyoq64MvfDT98ZX9jwFFdRTedA3",  # Wallet del comprador
-            "vendedor": "1Zxg1cd7TbVfe2uCkswhLNwHRRfhhA7d58",  # Wallet del vendedor
-            "cantidad": 0.010,  # Cantidad de Bitcoin
-            "precio": 46000,  # Precio del Bitcoin en USD
+            "comprador": "1LuvQ4cDyoq64MvfDT98ZX9jwFFdRTedA3",
+            "vendedor": "1Zxg1cd7TbVfe2uCkswhLNwHRRfhhA7d58",
+            "cantidad": 0.010,
+            "precio": 46000,
             "hash": hashlib.sha256("Compra de 0.010 BTC a $46000".encode()).hexdigest()
         }
     ]
 
     # Simulamos el bloque como la concatenación de las transacciones
     bloque_data = ''.join([f"{tx['comprador']} {tx['vendedor']} {tx['cantidad']} BTC {tx['precio']} USD" for tx in transacciones])
-    hash_bloque = hashlib.sha256(bloque_data.encode()).hexdigest()  # Hash del bloque
 
-    # Pasar los datos de la cuenta (dinero y bitcoins) a la plantilla junto con el resto
+    # Dificultad del bloque (valor objetivo)
+    dificultad = 2**240  # Target para el hash válido (muy sencillo)
+    bloque_data = ''.join([f"{tx['comprador']} {tx['vendedor']} {tx['cantidad']} BTC {tx['precio']} USD" for tx in transacciones])
+    hash_bloque = hashlib.sha256(bloque_data.encode()).hexdigest()  # Hash del bloque
+    intentos = 0
+
+    # Solo ejecutar el minado si el usuario pulsa el botón
+    if request.method == 'POST' and 'iniciar_minado' in request.form:
+        nonce = 0  # Inicializar el nonce
+        intentos = 0
+        inicio = time.time()  # Iniciar medición del tiempo
+
+        # Intentar encontrar un hash válido
+        while True:
+            intentos += 1
+            datos_a_hashear = f"{bloque_data}{nonce}"  # Añadimos el nonce al bloque
+            hash_bloque = hashlib.sha256(datos_a_hashear.encode()).hexdigest()  # Calculamos el hash
+            if int(hash_bloque, 16) <= dificultad:  # Convertimos el hash a entero y lo comparamos con la dificultad
+                break  # Hash válido encontrado
+            nonce += 1  # Incrementamos el nonce para el siguiente intento
+
+        fin = time.time()  # Terminar medición del tiempo
+        tiempo_minado = round(fin - inicio, 2)  # Tiempo en segundos
+
+        # Mensaje para el frontend
+        session['mensaje_minado'] = f"¡Bloque minado con éxito en {intentos} intentos y {tiempo_minado} segundos!"
+
+    # Obtener el mensaje de la sesión (si lo hay)
+    mensaje_minado = session.pop('mensaje_minado', None)
+
+    # Pasar todos los datos al template
     return render_template(
         'minar.html',
         transacciones=transacciones,
         hash_bloque=hash_bloque,
+        dificultad=dificultad,
+        intentos=intentos,
+        mensaje_minado=mensaje_minado,
         dinero=dinero,
         bitcoins=bitcoins
     )
