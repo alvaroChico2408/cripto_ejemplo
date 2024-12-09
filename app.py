@@ -169,10 +169,36 @@ def minar():
         bitcoins=bitcoins
     )
 
-
-@app.route('/enviar')
+@app.route('/enviar', methods=['GET', 'POST'])
 def enviar():
-    return render_template('enviar.html', mensaje="Esta es la página para enviar bitcoins.")
+    # Dirección ficticia para el desplegable
+    direcciones_disponibles = ["1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa", "1EzWVfHKZnqYmQjd2AfCvVG83s7G5Q6hsA"]
+
+    if request.method == 'POST':
+        destinatario = request.form.get('destinatario')
+        cantidad = float(request.form.get('cantidad', 0.0))
+        bitcoins = session.get('bitcoins', 0.0)
+
+        # Verificar si el usuario tiene suficientes bitcoins para enviar
+        if cantidad > bitcoins:
+            mensaje = "No tienes suficientes bitcoins para enviar esta cantidad."
+        elif cantidad <= 0:
+            mensaje = "Por favor, ingresa una cantidad válida."
+        else:
+            # Actualizar el saldo de bitcoins
+            session['bitcoins'] = bitcoins - cantidad
+            mensaje = f"Has enviado {cantidad:.7f} BTC a {destinatario} con éxito."
+
+        # Recargar la información actualizada en la página
+        dinero = session.get('dinero', 100.0)
+        bitcoins = session.get('bitcoins', 0.0)
+        return render_template('enviar.html', mensaje=mensaje, dinero=dinero, bitcoins=bitcoins, direcciones=direcciones_disponibles)
+
+    # Renderizar la página por primera vez (GET)
+    dinero = session.get('dinero', 100.0)
+    bitcoins = session.get('bitcoins', 0.0)
+    return render_template('enviar.html', mensaje=None, dinero=dinero, bitcoins=bitcoins, direcciones=direcciones_disponibles)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

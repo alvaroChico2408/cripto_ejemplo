@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Bitcoin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_comprar.css') }}">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav>
+        <a href="{{ url_for('index') }}">Comprar Bitcoin</a>
+        <a href="{{ url_for('minar') }}">Minar Bitcoin</a>
+        <a href="{{ url_for('enviar') }}">Enviar Bitcoin</a>
+    </nav>
+
+    <!-- Información de la cuenta -->
+    <div class="info-cuenta">
+        <h2>Información de la cuenta</h2>
+        <p><strong>Dinero disponible:</strong> ${{ dinero }}</p>
+        <p><strong>Bitcoins poseídos:</strong> {{ bitcoins }} BTC</p>
+
+        <!-- Formulario de envío -->
+        <form method="POST">
+            <div class="form-group">
+                <label for="destinatario">Dirección del destinatario:</label>
+                <select id="destinatario" name="destinatario" required>
+                    {% for direccion in direcciones %}
+                    <option value="{{ direccion }}">{{ direccion }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="cantidad">Cantidad a enviar (BTC):</label>
+                <input type="number" id="cantidad" name="cantidad" step="0.00000001" min="0.00000001" placeholder="Ejemplo: 0.01" required>
+            </div>
+
+            <button type="submit" class="btn-enviar">Enviar</button>
+        </form>
+
+        <!-- Mensaje de éxito o error -->
+        {% if mensaje %}
+        <div class="mensaje {{ 'exito' if 'éxito' in mensaje else 'error' }}">
+            {{ mensaje }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

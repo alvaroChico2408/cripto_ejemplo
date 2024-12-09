@@ -1,0 +1,79 @@
+/* Barra de navegación */
+nav {
+    background-color: #2d3e50; /* Color oscuro */
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: #fff; /* Texto blanco */
+    text-decoration: none;
+    margin: 0 20px;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s ease;
+}
+
+nav a:hover {
+    background-color: #3498db; /* Color azul claro al pasar el mouse */
+    transform: scale(1.1); /* Ampliación suave */
+}
+
+/* Estilo para mensajes */
+.mensaje {
+    margin-top: 15px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.mensaje.exito {
+    background-color: #2ecc71; /* Verde para éxito */
+    color: white;
+}
+
+.mensaje.error {
+    background-color: #e74c3c; /* Rojo para error */
+    color: white;
+}
+
+/* Asegura que cada grupo esté en una línea separada */
+.form-group {
+    margin-bottom: 15px; /* Espaciado entre campos */
+    display: flex;
+    flex-direction: column; /* Apilar label e input */
+}
+
+.form-group label {
+    font-size: 16px;
+    margin-bottom: 5px; /* Espaciado entre el label y el input */
+}
+
+.form-group input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 400px; /* Ancho máximo */
+}
+
+/* Botón */
+form button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #2980b9;
+}
