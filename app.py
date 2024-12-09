@@ -107,24 +107,19 @@ def minar():
             "vendedor": "1EzWVfHKZnqYmQjd2AfCvVG83s7G5Q6hsA",
             "cantidad": 0.005,
             "precio": 45000,
-            "hash": hashlib.sha256("Compra de 0.005 BTC a $45000".encode()).hexdigest()
         },
         {
             "comprador": "1LuvQ4cDyoq64MvfDT98ZX9jwFFdRTedA3",
             "vendedor": "1Zxg1cd7TbVfe2uCkswhLNwHRRfhhA7d58",
             "cantidad": 0.010,
             "precio": 46000,
-            "hash": hashlib.sha256("Compra de 0.010 BTC a $46000".encode()).hexdigest()
         }
     ]
-
-    # Simulamos el bloque como la concatenación de las transacciones
-    bloque_data = ''.join([f"{tx['comprador']} {tx['vendedor']} {tx['cantidad']} BTC {tx['precio']} USD" for tx in transacciones])
 
     # Dificultad del bloque (valor objetivo)
     dificultad = 2**240  # Target para el hash válido (muy sencillo)
     bloque_data = ''.join([f"{tx['comprador']} {tx['vendedor']} {tx['cantidad']} BTC {tx['precio']} USD" for tx in transacciones])
-    hash_bloque = hashlib.sha256(bloque_data.encode()).hexdigest()  # Hash del bloque
+    hash_bloque_anterior = hashlib.sha256("bloqueAnterior".encode()).hexdigest()
     intentos = 0
     recompensa = 6.25  # Recompensa estándar de Bitcoin por minar un bloque (puedes modificarla)
 
@@ -137,7 +132,7 @@ def minar():
         # Intentar encontrar un hash válido
         while True:
             intentos += 1
-            datos_a_hashear = f"{bloque_data}{nonce}"  # Añadimos el nonce al bloque
+            datos_a_hashear = f"{hash_bloque_anterior}{bloque_data}{nonce}"  # Añadimos el nonce al bloque
             hash_bloque = hashlib.sha256(datos_a_hashear.encode()).hexdigest()  # Calculamos el hash
             if int(hash_bloque, 16) <= dificultad:  # Convertimos el hash a entero y lo comparamos con la dificultad
                 break  # Hash válido encontrado
@@ -161,7 +156,7 @@ def minar():
     return render_template(
         'minar.html',
         transacciones=transacciones,
-        hash_bloque=hash_bloque,
+        hash_bloque_anterior=hash_bloque_anterior,
         dificultad=dificultad,
         intentos=intentos,
         mensaje_minado=mensaje_minado,
