@@ -44,4 +44,18 @@ Inicia el servidor Flask ejecutando el archivo principal de la aplicación.
 flask run
 ```
 
+---  
+
 ---
+
+# Manejo de la aplicación
+
+### Pestaña 1: Comprar Bitcoins
+Puedes comprar bitcoins introduciendo el dinero que quieres gastar.
+
+### Pestaña 2: Minar Bitcoins
+Pulsa el botón para minar bitcoins produciendo el hash correcto.
+
+### Pestaña 3: Enviar Bitcoins
+Puedes enviar bitcoins introduciendo la cantidad que quieres enviar y la dirección de la cartera a la que quieres enviarlos.
+
